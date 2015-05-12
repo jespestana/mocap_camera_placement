@@ -27,7 +27,7 @@ Vox_Size = -2; % 0.125 m (Voxel size)
 % min_cameras_point = 3; << it is set later
 
 % Volume where the tracking volume is calculated:
-%                  orig_x   orig_y  orig_z  size_x  size_y  size_z
+%                  orig_x   orig_y  orig_z  size_x  size_y  size_zca
 % tracking_volume = [4.0      4.0     0.0     L2+8   L1+8   3.125];
 %                  orig_x   orig_y  orig_z  size_x  size_y  size_z
 tracking_volume = [0.00     0.00    0.0     L2      L1+.30  3.125];
