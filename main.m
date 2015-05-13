@@ -30,7 +30,7 @@ Vox_Size = -2; % 0.125 m (Voxel size)
 %                  orig_x   orig_y  orig_z  size_x  size_y  size_zca
 % tracking_volume = [4.0      4.0     0.0     L2+8   L1+8   3.125];
 %                  orig_x   orig_y  orig_z  size_x  size_y  size_z
-tracking_volume = [0.15     0.15    0.0     L2+.30  L1+.60  3.125];
+tracking_volume = [0.00     0.00    0.0     L2      L1+.30  3.125];
 origin = tracking_volume(1:3)';
 % Camera parameters M = matrix( num_cameras, 8)
 %    attitude: {Y,yaw} , {P,pitch} , {R,roll} in deg
@@ -127,15 +127,17 @@ set(gca,'xlim',[0 Nvolx] * voxel_side_lenght, ...
         'zlim',[0 Nvolz] * voxel_side_lenght);
 hold all
 
-scatter3(M(:,1),M(:,2),M(:,3),'b','fill')
-legend('tracking volume','cameras')
+C = zeros(Ncam,3);
 A = zeros(Ncam,3);
 for n=1:Ncam
-    text(M(n,1),M(n,2),M(n,3)+.1,num2str(n))
     A(n,1:3) = cameras{n}.rot_matrix_w_c(:,1)';
+    C(n,1:3) = cameras{n}.center(:)';
+    text(C(n,1),C(n,2),C(n,3)+.1,num2str(n))
 end
+scatter3(C(:,1),C(:,2),C(:,3),'b','fill')
+legend('tracking volume','cameras')
 larrow = 0.3;
-quiver3(M(:,1),M(:,2),M(:,3),A(:,1)*larrow,A(:,2)*larrow,A(:,3)*larrow,'b','LineWidth',3,'AutoScale','off')
+quiver3(C(:,1),C(:,2),C(:,3),A(:,1)*larrow,A(:,2)*larrow,A(:,3)*larrow,'b','LineWidth',3,'AutoScale','off')
 axis equal
 xlabel('X (m)');
 ylabel('Y (m)');
